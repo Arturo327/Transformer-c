@@ -207,7 +207,7 @@ make cleandata
 
 ## Sample outputs
 
-Dimension = 128 model:
+Dimension = 128 model, these results are achieved after 120 epochs with a 12MB dataset (30 books):
 
 - the old man looked at the sea before him, as for the sergeant ship by starbucks!so he cant make a fine whale! 
 - she looked over the window, looked round her head, and broke off to the door and saw her head with her, with the young lady caught him out, like a servant with its own eyes, looked round.
@@ -216,6 +216,6 @@ Dimension = 128 model:
 
 The model learns basic grammar and sentence structure, but remains limited by its small size.
 
-I haven't finished the training of the bigger model, i will add here some generation examples when is completed.
+I haven't finished the training of the bigger model, i will add here some generation examples when is completed. I am training it in Colab with the GPU version with a 100MB dataset (186 books)
 
 ---
