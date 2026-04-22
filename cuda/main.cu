@@ -7,7 +7,7 @@
 #include <math.h>
 #include <cuda_runtime.h>
 
-// epochs actuales: 11
+// epochs actuales: 21
 
 #define SEQ_LEN_MAX 192
 #define VOCAB_SIZE 10000

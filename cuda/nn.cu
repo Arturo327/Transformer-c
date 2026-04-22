@@ -154,12 +154,13 @@ __global__ void norm_bck_k(const float *gin, float *gout, float *gw,
 		go[i] += ivar * (dx[i] - m1 - xhp[i] * m2);
 }
 
-__global__ void dropout_fwd_k(const float *in, float *out, float *mask,
-								float keep_prob, float scale, int n, uint64_t seed) {
+__global__ void dropout_fwd_k(const float *in, float *out, float *mask, float keep_prob, float scale, int n, uint64_t seed) {
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 	if (i >= n) return;
 	uint64_t st = seed + (uint64_t)i * 6364136223846793005ULL + 1442695040888963407ULL;
-	st ^= st >> 33; st *= 0xff51afd7ed558ccdULL; st ^= st >> 33;
+	st ^= st >> 33; 
+	st *= 0xff51afd7ed558ccdULL; 
+	st ^= st >> 17;
 	float u = (float)(st >> 11) * (1.0f / (float)(1ULL << 53));
 	float m = (u < keep_prob) ? scale : 0.0f;
 	mask[i] = m;
@@ -355,7 +356,7 @@ void dropout_forward(Layer *layer) {
 		return;
 	}
 	float scale		= layer->inv_std;
-	float keep_prob = 1.0f - 1.0f / scale;
+	float keep_prob = 1.0f / scale;
 	uint64_t seed	= xorshift64();
 	dropout_fwd_k<<<blocks(n,256), 256>>>(
 		layer->inputs[0], layer->outputs, layer->x_hat,

@@ -6,14 +6,14 @@
 #include <time.h>
 #include <math.h>
 
-#define SEQ_LEN_MAX 128
-#define VOCAB_SIZE 6000
+#define SEQ_LEN_MAX 192
+#define VOCAB_SIZE 10000
 
-#define MODEL_DIM 128
+#define MODEL_DIM 256
 #define HEADS 4
-#define LAYERS 3
+#define LAYERS 4
 #define MAX_TOKEN_LEN 32
-#define TEMPERATURA 0.6f
+#define TEMPERATURA 0.8f
 
 int main (int argc, char **argv) {
 	char *w_file = (argc > 1) ? argv[1] : "files/pesos.bin";
