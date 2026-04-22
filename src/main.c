@@ -7,20 +7,20 @@
 #include <math.h>
 
 #define SEQ_LEN_MAX 192
+#define MODEL_DIM 256
+#define LAYERS 4
+#define HEADS 4
 #define VOCAB_SIZE 10000
 
 #define MIN_LR 0.00001f
 #define MAX_LR 0.0005f
-#define WARMUP 4
 #define LAMBDA 0.001f
-#define TOTAL_EPOCHS 100
-
-#define MODEL_DIM 256
-#define HEADS 4
-#define BATCH_SIZE 32
-#define LAYERS 4
-#define MAX_TOKEN_LEN 32
 #define DROPOUT 0.1f
+#define TOTAL_EPOCHS 100
+#define WARMUP 4
+
+#define BATCH_SIZE 32
+#define MAX_TOKEN_LEN 32
 #define TEMPERATURA 0.7f
 
 int *read_text_ints (char *filename, int *len) {
