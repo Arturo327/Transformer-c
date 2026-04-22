@@ -28,6 +28,7 @@ sudo apt install gcc libopenblas-dev
 
 ## Project structure
 
+```
 c-transformer/
 ├── src/           # C source code
 ├── include/       # Header file
@@ -40,6 +41,7 @@ c-transformer/
 │   └── processed/ # Cleaned and tokenized data
 ├── python/        # scripts (download and preprocessing)
 └── cuda/          # GPU version + Colab notebook
+```
 
 ---
 
@@ -128,7 +130,7 @@ Model parameters are defined at the beginning of 'src/main.c'
 #define TOTAL_EPOCHS 100
 ```
 
-**Changing this parameters require recomplation**
+**Changing these parameters require recomplation**
 
 ---
 
@@ -154,7 +156,7 @@ Using a T4 GPU:
 - 15min instead 5h for epoch.
 
 Google Colab disconnects you from the execution environment when you reach the session limits. The notebook automatically saves the data when the training is complete.
-There is no a version for CUDA of the tokenizer, so remember to upload to Colab the tokenize book. 'vocab' and 'merges' files are no needed.
+There is no version for CUDA of the tokenizer, so remember to upload to Colab the tokenize book. 'vocab' and 'merges' files are no needed.
 
 ---
 
@@ -217,17 +219,3 @@ The model learns basic grammar and sentence structure, but remains limited by it
 I haven't finished the training of the bigger model, i will add here some generation examples when is completed.
 
 ---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
