@@ -6,12 +6,12 @@
 #include <time.h>
 #include <math.h>
 
-#define SEQ_LEN_MAX 192
-#define VOCAB_SIZE 10000
+#define SEQ_LEN_MAX 128
+#define VOCAB_SIZE 6000
 
-#define MODEL_DIM 256
+#define MODEL_DIM 128
 #define HEADS 4
-#define LAYERS 4
+#define LAYERS 3
 #define MAX_TOKEN_LEN 32
 #define TEMPERATURA 0.8f
 
@@ -20,7 +20,7 @@ int main (int argc, char **argv) {
 	char *vocab_file = (argc > 2) ? argv[2] : "files/vocab.bin";
 	char *merges_file = (argc > 3) ? argv[3] : "files/merges.bin";
 
-	int num_layers = LAYERS * 14 + 4;
+	int num_layers = LAYERS * 12 + 4;
 	Layer **layers = malloc(sizeof(Layer*) * num_layers);
 	Layer **inputs = malloc(sizeof(Layer*) * 3);
 
@@ -30,47 +30,41 @@ int main (int argc, char **argv) {
 	layers[1] = defL_embedding(VOCAB_SIZE, MODEL_DIM, SEQ_LEN_MAX, inputs);
 
 	for (int i = 0; i < LAYERS; i++) {
-		inputs[0] = layers[1 + 14 * i];
-		layers[2 + i * 14] = defL_norm(MODEL_DIM, SEQ_LEN_MAX, inputs);
+		inputs[0] = layers[1 + 12 * i];
+		layers[2 + i * 12] = defL_norm(MODEL_DIM, SEQ_LEN_MAX, inputs);
 
-		inputs[0] = layers[2 + 14 * i];
-		layers[3 + i * 14] = defL_FC(MODEL_DIM, MODEL_DIM, SEQ_LEN_MAX, inputs);
-		layers[4 + i * 14] = defL_FC(MODEL_DIM, MODEL_DIM, SEQ_LEN_MAX, inputs);
-		layers[5 + i * 14] = defL_FC(MODEL_DIM, MODEL_DIM, SEQ_LEN_MAX, inputs);
+		inputs[0] = layers[2 + 12 * i];
+		layers[3 + i * 12] = defL_FC(MODEL_DIM, MODEL_DIM, SEQ_LEN_MAX, inputs);
+		layers[4 + i * 12] = defL_FC(MODEL_DIM, MODEL_DIM, SEQ_LEN_MAX, inputs);
+		layers[5 + i * 12] = defL_FC(MODEL_DIM, MODEL_DIM, SEQ_LEN_MAX, inputs);
 		
-		inputs[0] = layers[3 + i * 14];
-		inputs[1] = layers[4 + i * 14];
-		inputs[2] = layers[5 + i * 14];
-		layers[6 + i * 14] = defL_attention(MODEL_DIM, SEQ_LEN_MAX, HEADS, inputs);
+		inputs[0] = layers[3 + i * 12];
+		inputs[1] = layers[4 + i * 12];
+		inputs[2] = layers[5 + i * 12];
+		layers[6 + i * 12] = defL_attention(MODEL_DIM, SEQ_LEN_MAX, HEADS, inputs);
 		
-		inputs[0] = layers[6 + i * 14];
-		layers[7 + i * 14] = defL_FC(MODEL_DIM, MODEL_DIM, SEQ_LEN_MAX, inputs);
-		
-		inputs[0] = layers[7 + i * 14];
-		layers[8 + i * 14] = defL_dropout(MODEL_DIM, 0.1, SEQ_LEN_MAX, inputs);
+		inputs[0] = layers[6 + i * 12];
+		layers[7 + i * 12] = defL_FC(MODEL_DIM, MODEL_DIM, SEQ_LEN_MAX, inputs);
 
-		inputs[0] = layers[8 + 14 * i];
-		inputs[1] = layers[1 + 14 * i];
-		layers[9 + i * 14] = defL_add(MODEL_DIM, SEQ_LEN_MAX, inputs);
+		inputs[0] = layers[7 + 12 * i];
+		inputs[1] = layers[1 + 12 * i];
+		layers[8 + i * 12] = defL_add(MODEL_DIM, SEQ_LEN_MAX, inputs);
 
-		inputs[0] = layers[9 + i * 14];
-		layers[10 + i * 14] = defL_norm(MODEL_DIM, SEQ_LEN_MAX, inputs);
+		inputs[0] = layers[8 + i * 12];
+		layers[9 + i * 12] = defL_norm(MODEL_DIM, SEQ_LEN_MAX, inputs);
 
-		inputs[0] = layers[10 + i * 14];
-		layers[11 + i * 14] = defL_FC(MODEL_DIM, MODEL_DIM * 4, SEQ_LEN_MAX, inputs);
+		inputs[0] = layers[9 + i * 12];
+		layers[10 + i * 12] = defL_FC(MODEL_DIM, MODEL_DIM * 4, SEQ_LEN_MAX, inputs);
 
-		inputs[0] = layers[11 + i * 14];
-		layers[12 + i * 14] = defL_relu(MODEL_DIM * 4, SEQ_LEN_MAX, inputs);
+		inputs[0] = layers[10 + i * 12];
+		layers[11 + i * 12] = defL_relu(MODEL_DIM * 4, SEQ_LEN_MAX, inputs);
 
-		inputs[0] = layers[12 + i * 14];
-		layers[13 + i * 14] = defL_FC(MODEL_DIM * 4, MODEL_DIM, SEQ_LEN_MAX, inputs);
+		inputs[0] = layers[11 + i * 12];
+		layers[12 + i * 12] = defL_FC(MODEL_DIM * 4, MODEL_DIM, SEQ_LEN_MAX, inputs);
 
-		inputs[0] = layers[13 + i * 14];
-		layers[14 + i * 14] = defL_dropout(MODEL_DIM, 0.1, SEQ_LEN_MAX, inputs);
-
-		inputs[0] = layers[14 + i * 14];
-		inputs[1] = layers[9 + i * 14];
-		layers[15 + i * 14] = defL_add(MODEL_DIM, SEQ_LEN_MAX, inputs);
+		inputs[0] = layers[12 + i * 12];
+		inputs[1] = layers[8 + i * 12];
+		layers[13 + i * 12] = defL_add(MODEL_DIM, SEQ_LEN_MAX, inputs);
 	}
 	int a = num_layers - 2;
 	

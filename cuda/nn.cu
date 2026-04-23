@@ -754,33 +754,3 @@ void freeN(Network *net) {
 	free(net);
 	cublasDestroy(cublas_handle);
 }
-
-int *translate(char *input, char **vocab, Merge *merges, int num_merges, int max_token_len, int vocab_size, int *out_len) {
-	int len = strlen(input);
-	int *tokens = (int*)malloc(sizeof(int) * len);
-	int n = 0;
-	for (int i = 0; i < len; i++) {
-		char s[2] = {input[i], '\0'};
-		int found = -1;
-		for (int j = 0; j < vocab_size; j++)
-			if (strcmp(vocab[j], s) == 0) { found = j; break; }
-		tokens[n++] = (found == -1) ? 0 : found;
-	}
-	for (int m = 0; m < num_merges; m++) {
-		int a = merges[m].a, b = merges[m].b, r = merges[m].result;
-		int new_n = 0;
-		for (int i = 0; i < n; ) {
-			if (i+1 < n && tokens[i] == a && tokens[i+1] == b) {
-				tokens[new_n++] = r; i += 2;
-			} else {
-				tokens[new_n++] = tokens[i++];
-			}
-		}
-		n = new_n;
-	}
-	int *out = (int*)malloc(sizeof(int) * n);
-	memcpy(out, tokens, n * sizeof(int));
-	free(tokens);
-	*out_len = n;
-	return out;
-}

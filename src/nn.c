@@ -625,14 +625,6 @@ void iniciar_w (Layer *layer) {
 	}
 }
 
-void iniciar_embeddings (Layer *layer) {
-	float *a = layer->w;
-	float scale = sqrtf(1.0f / layer->num_out);
-	for (int i = 0; i < layer->total_w; i++) {
-		*a++ = ((float)rand() / RAND_MAX * 2 - 1) * scale;
-	}
-}
-
 int str_w_file (Network *net, char *filename) {
 	FILE *f = fopen(filename, "wb");
 	fwrite(&net->beta1_t, sizeof(float), 1, f);

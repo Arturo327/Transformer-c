@@ -46,12 +46,6 @@ typedef struct Network {
 	void (*actualizar) (struct Network*, float lr, int batch_size, float lambda);
 } Network;
 
-typedef struct {
-    	int a;
-    	int b;
-    	int result;
-} Merge;
-
 Network *defnn(int num_layers, Layer **layers);
 Layer *defL_FC(int num_in, int num_out, int seq_len, Layer **layers);
 Layer *defL_relu(int num_in, int seq_len, Layer **layers);
@@ -73,7 +67,6 @@ int str_w_file (Network *net, const char *filename);
 int load_w_file (Network *net, const char *filename);
 void compute_loss_grad(float *d_logits, int *d_targets, float *d_loss, int seq_len, int vocab_size);
 
-int *translate (char *s, char **vocab, Merge *merges, int num_merges, int max_token_len, int vocab_size, int *out_len);
 uint64_t xorshift64(void);
 void softmax(float *in, float *out, int len);
 
