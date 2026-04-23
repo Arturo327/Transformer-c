@@ -91,15 +91,15 @@ python3 python/clean_books.py data/raw/ -o data/processed/output.txt --max-mb [S
 
 The preprocessing script applies:
 
-Remove XML/HTML tags and entities
-Remove URLs and emails
-Convert to lowercase
-Replace numbers with @
-Normalize punctuation (; → ., : → ,)
-Remove unwanted symbols (keep . , ? ! ' -)
-Collapse multiple spaces
-Remove short lines (<5 words)
-Add $ as paragraph separator
+- Remove XML/HTML tags and entities
+- Remove URLs and emails
+- Convert to lowercase
+- Replace numbers with @
+- Normalize punctuation (; → ., : → ,)
+- Remove unwanted symbols (keep . , ? ! ' -)
+- Collapse multiple spaces
+- Remove short lines (<5 words)
+- Add $ as paragraph separator
 
 ---
 
@@ -148,7 +148,7 @@ Using a T4 GPU:
 
 The colab notebook includes a cell for compiling. If you have a GPU use:
 ```bash
-!nvcc -O3 -use_fast_math -Icuda cuda/nn.cu cuda/main.cu -lcublas -lm -o build/nn_cuda 2>&1
+nvcc -O3 -use_fast_math -Icuda cuda/nn.cu cuda/main.cu -lcublas -lm -o build/nn_cuda 2>&1
 ```
 And run:
 ```bash
