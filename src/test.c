@@ -13,7 +13,7 @@
 #define HEADS 4
 #define LAYERS 4
 #define MAX_TOKEN_LEN 32
-#define TEMPERATURA 0.8f
+#define TEMPERATURA 0.6f
 
 int main (int argc, char **argv) {
 	char *w_file = (argc > 1) ? argv[1] : "files/pesos.bin";

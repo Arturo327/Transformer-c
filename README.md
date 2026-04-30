@@ -2,7 +2,6 @@
 
 ![C](https://img.shields.io/badge/language-C-blue)
 ![CUDA](https://img.shields.io/badge/GPU-CUDA-green)
-![License](https://img.shields.io/badge/license-MIT-orange)
 
 A lightweight, from-scratch Transformer implementation in C, designed for educational purposes and performance experimentation, with optional CUDA acceleration.
 
@@ -212,7 +211,9 @@ make cleandata
 
 ## Sample outputs
 
-Dimension = 128 model, these results were achieved after 120 epochs with a 12MB dataset (30 books):
+### Dimension = 128 model
+
+These results were achieved after 120 epochs with a 12MB dataset (30 books):
 
 Input:
 > the old man looked at the sea 
@@ -240,6 +241,34 @@ Output:
 
 The model learns basic grammar and sentence structure, but remains limited by its small size.
 
-I haven't finished the training of the bigger model, i will add here some generation examples when it is completed. I am training it in Colab with the GPU version with a 100MB dataset (186 books)
+### Dimension = 256 model
+
+These results were achieved after 100 epochs with a 100MB dataset (186 books):
+
+Input:
+> i am going to
+
+Output:
+> i am going to marry me so bad to feel so happy? 
+
+Input:
+> she looked over the window
+
+Output:
+> she looked over the window, and she had seen her hands in his pocket, and stepped into the room with a mouth and frostyle of paper and there was nothing had happened towards here, and then rose, with her.
+
+Input:
+> she opened the door and saw 
+
+Output:
+> she opened the door and saw that the two nowhere was the only noticed hands on it too. another person who seemed to be an helsing closed this time, she fell asleep, examined out.
+
+Input:
+> in the beginning there was
+
+Output:
+> in the beginning there was anything in body, atmosphere we could raise a day to no other reason for the better opportunity of pequade the old building into this very nearly the same reason.
+
+The model improves in fluidity and sentence complexity, but probably needs a bigger dataset or more training. I don't think I can train a larger model or increase the dataset using Colab.
 
 ---

@@ -7,7 +7,7 @@
 #include <math.h>
 #include <cuda_runtime.h>
 
-// epochs actuales: 22
+// epochs actuales: 100
 
 #define SEQ_LEN_MAX 192
 #define MODEL_DIM 256
@@ -22,7 +22,7 @@
 #define TOTAL_EPOCHS 100
 #define WARMUP 4
 
-#define BATCH_SIZE 32
+#define BATCH_SIZE 64
 #define MAX_TOKEN_LEN 32
 #define TEMPERATURA 0.7f
 
@@ -40,6 +40,7 @@ int *read_text_ints(const char *filename, int *len) {
 
 float lr_schedule(int step, int total, int warmup, float lr_max, float lr_min) {
 	if (step < warmup) return lr_max * ((float)step / (float)warmup);
+	if (step >= total) return lr_min;
 	float t = (float)(step - warmup) / (float)(total - warmup);
 	if (t > 1.0f) t = 1.0f;
 	return lr_min + 0.5f * (lr_max - lr_min) * (1.0f + cosf(3.1415926f * t));

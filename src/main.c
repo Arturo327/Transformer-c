@@ -40,6 +40,9 @@ float lr_schedule(int step, int total_steps, int warmup_steps, float lr_max, flo
     	if (step < warmup_steps) {
         	return lr_max * ((float)step / (float)warmup_steps);
     	}
+	if (step >= total_steps) {
+		return lr_min;
+	}
     	float t = (float)(step - warmup_steps) / (float)(total_steps - warmup_steps);
     	if (t > 1.0f) t = 1.0f;
     	float cosine = cosf(3.1415926f * t);
