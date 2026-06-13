@@ -209,6 +209,12 @@ make cleandata
 
 ---
 
+## License
+
+MIT
+
+---
+
 ## Sample outputs
 
 ### Dimension = 128 model
